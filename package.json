@@ -1,27 +1,29 @@
 {
-  "name": "lokal",
+  "name": "lokale",
   "version": "0.0.1-beta",
-  "description": "local storage manager with powerful reliable api",
-  "main": "dist/index.js",
+  "description": "localStorage manager with powerful and reliable api",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "scripts": {
-    "test": "mocha",
-    "build": "tsc"
+    "build": "tsc",
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mshaaban0/lokal.git"
+    "url": "git+https://github.com/mshaaban0/lokale.git"
   },
   "keywords": [
+    "lokale",
     "localStorage",
     "npm",
     "typescript"
   ],
-  "author": "MoeShaaban",
+  "author": "mshaaban0",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/mshaaban0/lokal/issues"
+    "url": "https://github.com/mshaaban0/lokale/issues"
   },
-  "homepage": "https://github.com/mshaaban0/lokal#readme",
+  "homepage": "https://github.com/mshaaban0/lokale#readme",
   "devDependencies": {
     "prettier": "1.13.7",
     "rollup": "^0.63.4",
