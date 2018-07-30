@@ -18,6 +18,12 @@
     "npm",
     "typescript"
   ],
+  "files": [
+    "dist",
+    "package.json",
+    "README.md",
+    "LICENSE.md"
+  ],
   "author": "mshaaban0",
   "license": "ISC",
   "bugs": {
