@@ -1,15 +1,15 @@
-export default class Lokal {
-  public lokalStorage: Storage;
+export default class Lokale {
+  public lokaleStorage: Storage;
   public isSupported: boolean = false;
 
   // Check & SetUp Storage
   constructor(storage: Storage) {
-    this.lokalStorage = storage;
+    this.lokaleStorage = storage || localStorage;
     this.isSupported = (() => {
       try {
         const dummyKey = "IamHereToCheckOnYou";
-        this.lokalStorage.setItem(dummyKey, dummyKey);
-        this.lokalStorage.removeItem(dummyKey);
+        this.lokaleStorage.setItem(dummyKey, dummyKey);
+        this.lokaleStorage.removeItem(dummyKey);
         return true;
       } catch {
         return false;
@@ -36,22 +36,65 @@ export default class Lokal {
   // Set item
   public setItem(key: string, value: string) {
     if (this.isSupported) {
-      return this.lokalStorage.setItem(key, value);
+      return this.lokaleStorage.setItem(key, value);
     }
   }
 
-  // Get remaining space
-  public remainingSpace(): string | null {
-    let amount = 0;
+  // Remove item
+  public removeItem(key: string) {
     if (this.isSupported) {
-      for (const key in this.lokalStorage) {
-        if (this.lokalStorage.hasOwnProperty(key)) {
-          const space = (this.lokalStorage[key].length * 2) / 1024 / 1024;
-          amount += space;
+      if (this.lokaleStorage.hasOwnProperty(key)) {
+        return this.lokaleStorage.removeItem(key);
+      }
+    }
+  }
+
+  // Clear Storage
+  public clear() {
+    if (this.isSupported) {
+      this.lokaleStorage.clear();
+    }
+  }
+
+  // Get detailed space usage
+  // TODO: Add functionality to get size of one item
+  public getSpaceUsage(): any {
+    interface IResultTypes {
+      usedSpace: string;
+      availableSpace: string;
+      [key: string]: string;
+    }
+
+    const result: IResultTypes = {
+      availableSpace: "",
+      usedSpace: "",
+    };
+    let usedSpace = 0;
+    let hasSpace = true;
+    let dummyData = "A";
+
+    if (this.isSupported) {
+      // Test available space
+      while (hasSpace) {
+        try {
+          dummyData += dummyData;
+          this.lokaleStorage.setItem("availableSpace", dummyData);
+        } catch (e) {
+          hasSpace = false;
         }
       }
-      return amount.toFixed(2);
+      // Each key size & total used space
+      Object.keys(this.lokaleStorage).forEach( (key) => {
+        const amount = (this.lokaleStorage[key].length * 2) / 1024 / 1024;
+        usedSpace += amount;
+        result[key] = `${amount.toFixed(2)} MB`;
+      });
+
+      result.usedSpace = `${usedSpace.toFixed(2)} MB`;
+      result.availableSpace = `${usedSpace.toFixed(2)} MB`;
+      // Remove dummy data
+      this.lokaleStorage.removeItem("availableSpace");
+      return result;
     }
-    return null;
   }
 }
