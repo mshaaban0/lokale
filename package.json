@@ -1,6 +1,6 @@
 {
   "name": "lokale",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "localStorage manager with powerful and reliable api",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
