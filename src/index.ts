@@ -1,3 +1,10 @@
+// Get Space Usage Types `getSpaceUsage`
+export interface ISpaceUsageResults {
+  usedSpace: string;
+  availableSpace: string;
+  [key: string]: string;
+}
+
 export default class Lokale {
   public lokaleStorage: Storage;
   public isSupported: boolean = false;
@@ -58,14 +65,8 @@ export default class Lokale {
 
   // Get detailed space usage
   // TODO: Add functionality to get size of one item
-  public getSpaceUsage(): any {
-    interface IResultTypes {
-      usedSpace: string;
-      availableSpace: string;
-      [key: string]: string;
-    }
-
-    const result: IResultTypes = {
+  public getSpaceUsage(): ISpaceUsageResults {
+    const result: ISpaceUsageResults = {
       availableSpace: "",
       usedSpace: "",
     };
@@ -94,7 +95,7 @@ export default class Lokale {
       result.availableSpace = `${usedSpace.toFixed(2)} MB`;
       // Remove dummy data
       this.lokaleStorage.removeItem("availableSpace");
-      return result;
     }
+    return result;
   }
 }
