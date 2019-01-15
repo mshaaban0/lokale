@@ -1,4 +1,4 @@
-# Lokale - Simpple API for localStorage Management
+# Lokale - Simple API for localStorage Management
 Lokale is a simple yet reliable api for browser localStorage or sessionStorage management.
 
 ### Install
